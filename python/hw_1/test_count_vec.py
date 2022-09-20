@@ -72,3 +72,19 @@ def test_edge_case_2():
     
     assert (true_matrix == count_matrix).all()
     
+
+def test_edge_case_3():
+    corpus = [
+        'Pasta'
+    ]
+    vectorizer = CountVectorizer()
+    count_matrix = vectorizer.fit_transform(corpus)
+    
+    vec = CVec()
+    true_matrix = vec.fit_transform(corpus).toarray()
+    true_vocab = list(vec.vocabulary_.keys())
+    
+    assert sorted(vec.get_feature_names()) == sorted(true_vocab)
+    
+    assert (true_matrix == count_matrix).all()
+    
