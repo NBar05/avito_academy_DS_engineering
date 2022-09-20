@@ -11,15 +11,18 @@ def test_ordinary_case():
     ]
     vectorizer = CountVectorizer()
     count_matrix = vectorizer.fit_transform(corpus)
-    
+
     true_vocab = ['crock', 'pot', 'pasta', 'never', 'boil', 'again', 'pomodoro',
                   'fresh', 'ingredients', 'parmesan', 'to', 'taste']
     true_matrix = np.array([[1, 1, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0],
                             [0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1]])
-    
+
     assert sorted(vectorizer.get_feature_names()) == sorted(true_vocab)
-    
-    assert (true_matrix[:, np.argsort(true_vocab)] == count_matrix[:, np.argsort(vectorizer.get_feature_names())]).all()
+
+    assert (
+        true_matrix[:, np.argsort(true_vocab)] ==
+        count_matrix[:, np.argsort(vectorizer.get_feature_names())]
+    ).all()
 
 
 def test_ordinary_case_with_sklearn():
@@ -29,15 +32,15 @@ def test_ordinary_case_with_sklearn():
     ]
     vectorizer = CountVectorizer()
     count_matrix = vectorizer.fit_transform(corpus)
-    
+
     vec = CVec()
     true_matrix = vec.fit_transform(corpus).toarray()
     true_vocab = list(vec.vocabulary_.keys())
-    
+
     assert sorted(vec.get_feature_names()) == sorted(true_vocab)
-    
+
     assert (true_matrix == count_matrix).all()
-    
+
 
 def test_edge_case_1():
     corpus = [
@@ -46,15 +49,15 @@ def test_edge_case_1():
     ]
     vectorizer = CountVectorizer()
     count_matrix = vectorizer.fit_transform(corpus)
-    
+
     vec = CVec()
     true_matrix = vec.fit_transform(corpus).toarray()
     true_vocab = list(vec.vocabulary_.keys())
-    
+
     assert sorted(vec.get_feature_names()) == sorted(true_vocab)
-    
+
     assert (true_matrix == count_matrix).all()
-    
+
 
 def test_edge_case_2():
     corpus = [
@@ -63,15 +66,15 @@ def test_edge_case_2():
     ]
     vectorizer = CountVectorizer()
     count_matrix = vectorizer.fit_transform(corpus)
-    
+
     vec = CVec()
     true_matrix = vec.fit_transform(corpus).toarray()
     true_vocab = list(vec.vocabulary_.keys())
-    
+
     assert sorted(vec.get_feature_names()) == sorted(true_vocab)
-    
+
     assert (true_matrix == count_matrix).all()
-    
+
 
 def test_edge_case_3():
     corpus = [
@@ -79,12 +82,11 @@ def test_edge_case_3():
     ]
     vectorizer = CountVectorizer()
     count_matrix = vectorizer.fit_transform(corpus)
-    
+
     vec = CVec()
     true_matrix = vec.fit_transform(corpus).toarray()
     true_vocab = list(vec.vocabulary_.keys())
-    
+
     assert sorted(vec.get_feature_names()) == sorted(true_vocab)
-    
+
     assert (true_matrix == count_matrix).all()
-    
