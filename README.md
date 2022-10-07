@@ -1,2 +1,3 @@
-# avito_academy_DS_engineering
-HWs for AAA (DS engineer track)
+# Avito Analytics Academy (AAA)
+
+## HWs for AAA (DS/ML engineer track)
