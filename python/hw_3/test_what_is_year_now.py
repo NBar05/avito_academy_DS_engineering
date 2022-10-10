@@ -27,7 +27,6 @@ def what_is_year_now() -> int:
         resp_json = json.load(resp)
 
     datetime_str = resp_json['currentDateTime']
-
     if datetime_str[YMD_SEP_INDEX] == YMD_SEP:
         year_str = datetime_str[YMD_YEAR_SLICE]
     elif datetime_str[DMY_SEP_INDEX] == DMY_SEP:
@@ -38,35 +37,34 @@ def what_is_year_now() -> int:
     return int(year_str)
 
 
-def test_work_case():
-    assert 2022 == what_is_year_now()
-
-
 def test_dash_case():
-    with patch("json.load") as mocked_json_load:
+    with patch("urllib.request.urlopen") as mocked_urlopen,\
+       patch("json.load") as mocked_json_load:
+
+        mocked_urlopen.return_value.__enter__.return_value.read.return_value = 'ok'
         mocked_json_load.return_value = {'currentDateTime': '2019-10-07T21:32Z'}
 
         assert 2019 == what_is_year_now()
 
 
 def test_dot_case():
-    with patch("json.load") as mocked_json_load:
+    with patch("urllib.request.urlopen") as mocked_urlopen,\
+       patch("json.load") as mocked_json_load:
+
+        mocked_urlopen.return_value.__enter__.return_value.read.return_value = 'ok'
         mocked_json_load.return_value = {'currentDateTime': '07.10.2020T21:21Z'}
 
         assert 2020 == what_is_year_now()
 
 
 def test_invalid_case():
-    with patch("json.load") as mocked_json_load, pytest.raises(ValueError) as exc_info:
+    with patch("urllib.request.urlopen") as mocked_urlopen,\
+       patch("json.load") as mocked_json_load,\
+       pytest.raises(ValueError) as exc_info:
+
+        mocked_urlopen.return_value.__enter__.return_value.read.return_value = 'ok'
         mocked_json_load.return_value = {'currentDateTime': '450450450'}
 
         what_is_year_now()
-        assert str(exc_info.value) == 'Invalid format'
 
-
-if __name__ == '__main__':
-    year = what_is_year_now()
-    exp_year = 2022
-
-    print(year)
-    assert year == exp_year
+    assert str(exc_info.value) == 'Invalid format'

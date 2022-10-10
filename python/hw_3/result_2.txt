@@ -1,7 +1,7 @@
 ============================= test session starts ==============================
 platform darwin -- Python 3.8.1, pytest-6.2.5, py-1.10.0, pluggy-1.0.0
 rootdir: /Users/nikitabaramiya/Desktop/avito/python/hw_3
-plugins: hypothesis-6.39.4, anyio-3.3.1
+plugins: hypothesis-6.39.4, anyio-3.3.1, cov-4.0.0
 collected 4 items
 
 test_morse.py ....                                                       [100%]
